@@ -1,32 +1,32 @@
 module.exports = function zeros(expression) {
-        var tempRes = fact(parseInt(expression));
+  var numExl =[];
+  var arrNum =[];
+    if(expression.search(/\*/) === -1){
+        var tempRes = expression.slice(0, expression.indexOf("!"));
+        numExl.push(stepCount(expression));
+        console.log(" nm" + numExl);
         var zeroAmount = 0;
-        var i = true;
-        var t = 10;
-        while (i){
 
-        if((tempRes % (t)) === 0){
-          zeroAmount++;
+    }else{
+        var arr = expression.split("*");
 
-        } else {
+        for(var i = 0; i < arr.length; i++){
+        numExl.push(stepCount(arr[i]));
+}
 
-          i = false;
 
-        }
 
-        t = t*10;
+  console.log(numExl);
       }
+
 return zeroAmount;
 }
 
-
-
-function fact(a){
-var res;
-if(a<=1){
-res = 1;
-} else {
-res = a*fact(a-1);
-}
-return res;
+function stepCount(item){
+  item.trim();
+  if(item.length-2 === item.indexOf("!")){
+ return 2;
+ } else{
+ return 1;
+ }
 }
