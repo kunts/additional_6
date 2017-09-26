@@ -6,9 +6,10 @@ module.exports = function zeros(expression) {
 
     if(expression.search(/\*/) === -1){
 
-        var operands = expression.slice(0, expression.indexOf("!"));
-        var step = (stepCount(expression));
-        multRes = multiply(multRes, fact(operands, step));
+        operands.push(expression.slice(0, expression.indexOf("!")));
+        step.push(stepCount(expression));
+
+        /*multRes = multiply(multRes, fact(operands, step));*/
 
     }else{
 
@@ -21,7 +22,7 @@ module.exports = function zeros(expression) {
         return item.slice(0, item.indexOf("!"));
         });
 
-            for (var j = 0; j< operands.length; j++){
+          /*  for (var j = 0; j< operands.length; j++){
               multRes = multiply(multRes, fact(operands[j], step[j]));
             }
        }
@@ -31,6 +32,12 @@ for (var p = multRes.length-1; p>=0; p--){
     zeroAmount++;
   } else{
     break;
+  }*/
+}
+for (var j = 0; j < operands.length; j++){
+  if(step[j] === 1){
+    zeroAmount += divFive(operands[j]);
+    console.log(divFive(operands[j]))
   }
 }
 return zeroAmount;
@@ -44,7 +51,19 @@ function stepCount(item){
      return 1;
  }
 }
+function divFive(toDivide){
+  var result = 0;
+  var divider = 5;
+  while(toDivide/divider >= 1){
+    result += Math.trunc(toDivide/divider);
+    console.log(result);
+    divider = divider*5;
+  }
+  return result;
+}
 
+
+/*
 function fact(a,step){
 var res;
     if(a<=1){
@@ -151,4 +170,4 @@ function mulSum(i, temp, sum){
       arr.push(mem);
   }
   return arr;
-}
+}*/
