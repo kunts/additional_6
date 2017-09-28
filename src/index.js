@@ -6,10 +6,9 @@ module.exports = function zeros(expression) {
 
     if(expression.search(/\*/) === -1){
 
-        operands.push(expression.slice(0, expression.indexOf("!")));
-        step.push(stepCount(expression));
-
-        /*multRes = multiply(multRes, fact(operands, step));*/
+        var operands = expression.slice(0, expression.indexOf("!"));
+        var step = (stepCount(expression));
+        multRes = multiply(multRes, fact(operands, step));
 
     }else{
 
@@ -22,7 +21,7 @@ module.exports = function zeros(expression) {
         return item.slice(0, item.indexOf("!"));
         });
 
-          /*  for (var j = 0; j< operands.length; j++){
+            for (var j = 0; j< operands.length; j++){
               multRes = multiply(multRes, fact(operands[j], step[j]));
             }
        }
@@ -32,12 +31,6 @@ for (var p = multRes.length-1; p>=0; p--){
     zeroAmount++;
   } else{
     break;
-  }*/
-}
-for (var j = 0; j < operands.length; j++){
-  if(step[j] === 1){
-    zeroAmount += divFive(operands[j]);
-    console.log(divFive(operands[j]))
   }
 }
 return zeroAmount;
@@ -51,19 +44,7 @@ function stepCount(item){
      return 1;
  }
 }
-function divFive(toDivide){
-  var result = 0;
-  var divider = 5;
-  while(toDivide/divider >= 1){
-    result += Math.trunc(toDivide/divider);
-    console.log(result);
-    divider = divider*5;
-  }
-  return result;
-}
 
-
-/*
 function fact(a,step){
 var res;
     if(a<=1){
@@ -170,4 +151,83 @@ function mulSum(i, temp, sum){
       arr.push(mem);
   }
   return arr;
-}*/
+}
+/*module.exports = function zeros(expression) {
+
+  var step = [];
+  var operands = [];
+  var zeroAmount = 0;
+  var numFive = 0;
+  var numTwo = 0;
+  if (expression.indexOf("*") === -1) {
+    operands.push(expression.slice(0, expression.indexOf("!")));
+    step.push(stepCount(expression));
+  } else {
+    var arr = expression.split("*");
+    for (var i = 0; i < arr.length; i++) {
+      step.push(stepCount(arr[i]));
+    }
+    operands = arr.map(function(item) {
+      return item.slice(0, item.indexOf("!"));
+    });
+  }
+  for (var j = 0; j < operands.length; j++) {
+    if (step[j] === 1) {
+      numFive += divOnFive(operands[j], step[j]);
+      numTwo += divOnTwo(operands[j]);
+    } else {
+      if (operands[j] % 2 != 0) {
+        numFive += divOnFive(operands[j], step[j]);
+      } else {
+        var temp = zeroInEven(operands[j]);
+        numTwo += divOnTwo(operands[j]) - temp;
+        zeroAmount += temp;
+      }
+    }
+  }
+  zeroAmount += Math.min(numFive, numTwo);
+  return zeroAmount;
+}
+
+function stepCount(item) {
+  item.trim();
+  if (item.length - 2 === item.indexOf("!")) {
+    return 2;
+  } else {
+    return 1;
+  }
+}
+
+function divOnFive(toDivide, step) {
+  var result = 0;
+  var divider = 5;
+  while (toDivide / divider >= 1) {
+    result += Math.ceil(Math.trunc(toDivide / divider) / step);
+    divider = divider * 5;
+  }
+  return result;
+}
+
+function divOnTwo(toDivide) {
+  var result = 0;
+  var divider = 2;
+  while (toDivide / divider >= 1) {
+    result += Math.trunc(toDivide / divider);
+    divider = divider * 2;
+  }
+  return result;
+}
+
+function zeroInEven(toDivide) {
+  var result = 0;
+  var divider = 10;
+  var numFive = 0;
+  while (toDivide / divider >= 1) {
+    result += Math.trunc(toDivide / divider);
+    result += Math.ceil(Math.trunc((Math.trunc(toDivide / divider) / 5)) / 2);
+    numFive += Math.ceil(Math.trunc((Math.trunc(toDivide / divider) / 5)) / 2);
+    divider = divider * 10;
+  }
+  return result;
+}
+*/
